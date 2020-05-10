@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+
 	pb "github.com/Oxyaction/xchange/rpc"
 	"github.com/Oxyaction/xchange/services/api_gateway/routers"
 
@@ -21,9 +22,9 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := pb.NewAccountClient(conn)
+	accountClient := pb.NewAccountClient(conn)
 
-	router := routers.InitRoutes(c)
+	router := routers.InitRoutes(accountClient)
 	server := &http.Server{
 		Addr:    ":8080",
 		Handler: router,

@@ -8,6 +8,8 @@ service Account {
   rpc ChangeBalance (ChangeBalanceRequest) returns (AccountReply) {}
   rpc GetBalance (GetBalanceRequest) returns (AccountReply) {}
   rpc Create (CreateRequest) returns (AccountReply) {}
+  rpc CreateAsset (CreateAssetRequest) returns (Asset) {}
+  rpc ChangeAssetBalance (AssetBalance) returns (AssetBalance) {}
 }
 
 // The request message containing the account id and amount (could be negative to reduce).
@@ -26,6 +28,17 @@ message AccountReply {
   int32 balance = 2;
 }
 
-message CreateRequest {
+message CreateRequest {}
 
+message CreateAssetRequest {}
+
+message Asset {
+  string id = 1;
+  string name = 2;
+}
+
+message AssetBalance {
+  string account_id = 1;
+  string asset_id = 2;
+  int32 balance = 3;
 }

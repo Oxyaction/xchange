@@ -1,7 +1,8 @@
 .PHONY: grpc grpc_clean
 
 generate_grpc: grpc_clean
-	protoc --proto_path rpc/ --go_out=plugins=grpc:rpc rpc/account.proto
+	protoc --proto_path rpc/ --proto_path /Users/admin/go/src/github.com/golang/protobuf/ptypes/timestamp --go_out=plugins=grpc:rpc rpc/account.proto
+	protoc --proto_path rpc/ --proto_path /Users/admin/go/src/github.com/golang/protobuf/ptypes/timestamp --go_out=plugins=grpc:rpc rpc/order.proto
 
 grpc_clean:
 	rm rpc/*.go || true
@@ -11,17 +12,17 @@ remove_omitempty:
 
 grpc: grpc_clean generate_grpc remove_omitempty
 
-migrate_account:
-	cd services/account && tern migrate --migrations ./migrations
+migrate/%:
+	cd services/$(@F) && DB_NAME=$(@F) tern migrate --migrations ./migrations
 
-migrate_account_undo:
-	cd services/account && tern migrate --migrations ./migrations --destination -1
+migrate_undo/%:
+	cd services/$(@F) && DB_NAME=$(@F) tern migrate --migrations ./migrations --destination -1
 
-migrate_order:
-	cd services/order && tern migrate --migrations ./migrations
+migrate_test/%:
+	cd services/$(@F) && DB_NAME=$(@F)_test tern migrate --migrations ./migrations
 
-migrate_order_undo:
-	cd services/order && tern migrate --migrations ./migrations --destination -1
+migrate_test_undo/%:
+	cd services/$(@F) && DB_NAME=$(@F)_test tern migrate --migrations ./migrations --destination -1
 
 
 local_dev:

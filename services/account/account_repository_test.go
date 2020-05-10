@@ -10,7 +10,8 @@ import (
 
 var pool *pgxpool.Pool
 var conn *pgxpool.Conn
-var repository *accountRepository
+var accountRepo *accountRepository
+var assetRepo *assetRepository
 
 const testDbURL = "postgres://postgres:xchange@localhost/account_test?sslmode=disable&pool_max_conns=10"
 
@@ -31,7 +32,8 @@ func TestMain(m *testing.M) {
 		log.Fatalf("Unable to acquire connection")
 	}
 
-	repository = &accountRepository{pool}
+	accountRepo = &accountRepository{pool}
+	assetRepo = &assetRepository{pool}
 
 	m.Run()
 
@@ -41,7 +43,7 @@ func TestMain(m *testing.M) {
 
 func TestCreate(t *testing.T) {
 	t.Cleanup(cleanup)
-	account := repository.Create(context.Background())
+	account := accountRepo.Create(context.Background())
 	if len(account.Id) != 36 {
 		t.Errorf("Expected `account.Id` to be uuid, got '%s'", account.Id)
 	}
@@ -52,8 +54,8 @@ func TestCreate(t *testing.T) {
 
 func TestGet(t *testing.T) {
 	t.Cleanup(cleanup)
-	account := repository.Create(context.Background())
-	storedAccount, err := repository.Get(context.Background(), account.Id)
+	account := accountRepo.Create(context.Background())
+	storedAccount, err := accountRepo.Get(context.Background(), account.Id)
 	if err != nil {
 		t.Error(err)
 	}
@@ -67,7 +69,7 @@ func TestGet(t *testing.T) {
 
 func TestGetNotFound(t *testing.T) {
 	t.Cleanup(cleanup)
-	storedAccount, err := repository.Get(context.Background(), "a7beabee-bec2-4fc6-b86d-659b3b617562")
+	storedAccount, err := accountRepo.Get(context.Background(), "a7beabee-bec2-4fc6-b86d-659b3b617562")
 	if storedAccount != nil {
 		t.Error("should return nil on non-existing account")
 	}
@@ -81,13 +83,13 @@ func TestGetNotFound(t *testing.T) {
 
 func TestSave(t *testing.T) {
 	t.Cleanup(cleanup)
-	account := repository.Create(context.Background())
+	account := accountRepo.Create(context.Background())
 	account.Balance = 150
-	err := repository.Save(context.Background(), account)
+	err := accountRepo.Save(context.Background(), account)
 	if err != nil {
 		t.Error(err)
 	}
-	storedAccount, err := repository.Get(context.Background(), account.Id)
+	storedAccount, err := accountRepo.Get(context.Background(), account.Id)
 	if err != nil {
 		t.Error(err)
 	}
@@ -100,7 +102,7 @@ func TestSaveNonExisting(t *testing.T) {
 	t.Cleanup(cleanup)
 	account := new(Account)
 	account.Id = "a7beabee-bec2-4fc6-b86d-659b3b617562"
-	err := repository.Save(context.Background(), account)
+	err := accountRepo.Save(context.Background(), account)
 	if err == nil {
 		t.Error("Expected to return an error on non-exiting record")
 	}

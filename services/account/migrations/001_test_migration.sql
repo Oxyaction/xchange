@@ -6,8 +6,7 @@ CREATE TABLE IF NOT EXISTS account (
 
 CREATE TABLE IF NOT EXISTS asset (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR (255) NOT NULL,
-  balance integer NOT NULL DEFAULT 0 CHECK(balance >= 0)
+  name VARCHAR (255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS account_asset (

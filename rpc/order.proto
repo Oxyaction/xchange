@@ -2,16 +2,20 @@ syntax = "proto3";
 
 package rpc;
 
+import "timestamp.proto";
+
 // The greeting service definition.
-service Account {
+service Order {
   // Sends a greeting
   rpc CreateSellOrder (CreateSellOrderRequest) returns (SellOrderReply) {}
 }
 
-// The request message containing the account id and amount (could be negative to reduce).
+// The request message containing order information
 message CreateSellOrderRequest {
-  string id = 1;
+  string asset_id = 1;
   int32 amount = 2;
+  int32 price = 3;
+  string seller_id = 4;
 }
 
 // The response message containing the greetings
@@ -20,5 +24,6 @@ message SellOrderReply {
   int32 amount = 2;
   int32 price = 3;
   string seller_id = 4;
-  
+  string asset_id = 5;
+  google.protobuf.Timestamp created_at = 6;
 }

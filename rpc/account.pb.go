@@ -190,11 +190,147 @@ func (m *CreateRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_CreateRequest proto.InternalMessageInfo
 
+type CreateAssetRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateAssetRequest) Reset()         { *m = CreateAssetRequest{} }
+func (m *CreateAssetRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateAssetRequest) ProtoMessage()    {}
+func (*CreateAssetRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e28828dcb8d24f0, []int{4}
+}
+
+func (m *CreateAssetRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateAssetRequest.Unmarshal(m, b)
+}
+func (m *CreateAssetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateAssetRequest.Marshal(b, m, deterministic)
+}
+func (m *CreateAssetRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateAssetRequest.Merge(m, src)
+}
+func (m *CreateAssetRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateAssetRequest.Size(m)
+}
+func (m *CreateAssetRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateAssetRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateAssetRequest proto.InternalMessageInfo
+
+type Asset struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Asset) Reset()         { *m = Asset{} }
+func (m *Asset) String() string { return proto.CompactTextString(m) }
+func (*Asset) ProtoMessage()    {}
+func (*Asset) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e28828dcb8d24f0, []int{5}
+}
+
+func (m *Asset) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Asset.Unmarshal(m, b)
+}
+func (m *Asset) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Asset.Marshal(b, m, deterministic)
+}
+func (m *Asset) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Asset.Merge(m, src)
+}
+func (m *Asset) XXX_Size() int {
+	return xxx_messageInfo_Asset.Size(m)
+}
+func (m *Asset) XXX_DiscardUnknown() {
+	xxx_messageInfo_Asset.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Asset proto.InternalMessageInfo
+
+func (m *Asset) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Asset) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type AssetBalance struct {
+	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id"`
+	AssetId              string   `protobuf:"bytes,2,opt,name=asset_id,json=assetId,proto3" json:"asset_id"`
+	Balance              int32    `protobuf:"varint,3,opt,name=balance,proto3" json:"balance"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AssetBalance) Reset()         { *m = AssetBalance{} }
+func (m *AssetBalance) String() string { return proto.CompactTextString(m) }
+func (*AssetBalance) ProtoMessage()    {}
+func (*AssetBalance) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e28828dcb8d24f0, []int{6}
+}
+
+func (m *AssetBalance) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AssetBalance.Unmarshal(m, b)
+}
+func (m *AssetBalance) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AssetBalance.Marshal(b, m, deterministic)
+}
+func (m *AssetBalance) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AssetBalance.Merge(m, src)
+}
+func (m *AssetBalance) XXX_Size() int {
+	return xxx_messageInfo_AssetBalance.Size(m)
+}
+func (m *AssetBalance) XXX_DiscardUnknown() {
+	xxx_messageInfo_AssetBalance.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AssetBalance proto.InternalMessageInfo
+
+func (m *AssetBalance) GetAccountId() string {
+	if m != nil {
+		return m.AccountId
+	}
+	return ""
+}
+
+func (m *AssetBalance) GetAssetId() string {
+	if m != nil {
+		return m.AssetId
+	}
+	return ""
+}
+
+func (m *AssetBalance) GetBalance() int32 {
+	if m != nil {
+		return m.Balance
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*ChangeBalanceRequest)(nil), "rpc.ChangeBalanceRequest")
 	proto.RegisterType((*GetBalanceRequest)(nil), "rpc.GetBalanceRequest")
 	proto.RegisterType((*AccountReply)(nil), "rpc.AccountReply")
 	proto.RegisterType((*CreateRequest)(nil), "rpc.CreateRequest")
+	proto.RegisterType((*CreateAssetRequest)(nil), "rpc.CreateAssetRequest")
+	proto.RegisterType((*Asset)(nil), "rpc.Asset")
+	proto.RegisterType((*AssetBalance)(nil), "rpc.AssetBalance")
 }
 
 func init() {
@@ -202,21 +338,27 @@ func init() {
 }
 
 var fileDescriptor_8e28828dcb8d24f0 = []byte{
-	// 211 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4d, 0x4c, 0x4e, 0xce,
-	0x2f, 0xcd, 0x2b, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x2e, 0x2a, 0x48, 0x56, 0xb2,
-	0xe3, 0x12, 0x71, 0xce, 0x48, 0xcc, 0x4b, 0x4f, 0x75, 0x4a, 0xcc, 0x49, 0xcc, 0x4b, 0x4e, 0x0d,
-	0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0xe2, 0xe3, 0x62, 0xca, 0x4c, 0x91, 0x60, 0x54, 0x60,
-	0xd4, 0xe0, 0x0c, 0x62, 0xca, 0x4c, 0x11, 0x12, 0xe3, 0x62, 0x4b, 0xcc, 0x05, 0x69, 0x96, 0x60,
-	0x52, 0x60, 0xd4, 0x60, 0x0d, 0x82, 0xf2, 0x94, 0x94, 0xb9, 0x04, 0xdd, 0x53, 0x4b, 0xf0, 0x6b,
-	0x56, 0xb2, 0xe0, 0xe2, 0x71, 0x84, 0x58, 0x1d, 0x94, 0x5a, 0x90, 0x53, 0x89, 0x61, 0xb8, 0x04,
-	0x17, 0x7b, 0x12, 0xc4, 0x04, 0xa8, 0xe9, 0x30, 0xae, 0x12, 0x3f, 0x17, 0xaf, 0x73, 0x51, 0x6a,
-	0x62, 0x09, 0xcc, 0x68, 0xa3, 0x1d, 0x8c, 0x5c, 0xec, 0x50, 0xb3, 0x84, 0xec, 0xb9, 0x78, 0x51,
-	0xdc, 0x2e, 0x24, 0xa9, 0x57, 0x54, 0x90, 0xac, 0x87, 0xcd, 0x3f, 0x52, 0x82, 0x60, 0x29, 0x64,
-	0x57, 0x28, 0x31, 0x08, 0x59, 0x72, 0x71, 0x21, 0x1c, 0x2f, 0x24, 0x06, 0x56, 0x82, 0xe1, 0x1b,
-	0xec, 0x5a, 0x0d, 0xb9, 0xd8, 0x20, 0x0e, 0x13, 0x12, 0x82, 0x58, 0x8a, 0xec, 0x4a, 0xac, 0x5a,
-	0x92, 0xd8, 0xc0, 0xc1, 0x6e, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x79, 0x15, 0xe7, 0x46, 0x87,
-	0x01, 0x00, 0x00,
+	// 314 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x92, 0xcf, 0x4a, 0xf3, 0x40,
+	0x14, 0xc5, 0xdb, 0xf4, 0x6b, 0xfb, 0xf5, 0xd8, 0x2a, 0xb9, 0x94, 0x9a, 0x06, 0x84, 0x32, 0x6e,
+	0x0a, 0x42, 0xc0, 0x3f, 0x0b, 0x05, 0x51, 0x6a, 0x17, 0xd2, 0x6d, 0x5e, 0x40, 0x26, 0xc9, 0xa0,
+	0x85, 0x36, 0x89, 0xc9, 0x74, 0xe1, 0x3b, 0xf9, 0x90, 0x92, 0x99, 0x89, 0x4d, 0x48, 0x70, 0x97,
+	0x7b, 0xe6, 0x9c, 0x33, 0x77, 0x7e, 0x04, 0x13, 0x1e, 0x86, 0xc9, 0x21, 0x96, 0x5e, 0x9a, 0x25,
+	0x32, 0xa1, 0x5e, 0x96, 0x86, 0xec, 0x09, 0xd3, 0xf5, 0x07, 0x8f, 0xdf, 0xc5, 0x0b, 0xdf, 0xf1,
+	0x38, 0x14, 0xbe, 0xf8, 0x3c, 0x88, 0x5c, 0xd2, 0x29, 0xac, 0x6d, 0xe4, 0x74, 0x17, 0xdd, 0xe5,
+	0xc8, 0xb7, 0xb6, 0x11, 0xcd, 0x30, 0xe0, 0xfb, 0x22, 0xec, 0x58, 0x8b, 0xee, 0xb2, 0xef, 0x9b,
+	0x89, 0x5d, 0xc2, 0x7e, 0x15, 0xf2, 0xef, 0x30, 0xbb, 0xc7, 0x78, 0xa5, 0xaf, 0xf6, 0x45, 0xba,
+	0xfb, 0x6a, 0x94, 0x3b, 0x18, 0x06, 0xba, 0xc1, 0xb4, 0x97, 0x23, 0x3b, 0xc3, 0x64, 0x9d, 0x09,
+	0x2e, 0xcb, 0x6a, 0x36, 0x05, 0x69, 0x61, 0x95, 0xe7, 0x42, 0x96, 0xea, 0x15, 0xfa, 0x6a, 0x6e,
+	0x34, 0x13, 0xfe, 0xc5, 0x7c, 0xaf, 0x6b, 0x47, 0xbe, 0xfa, 0x66, 0x01, 0xc6, 0xca, 0x6c, 0x96,
+	0xa6, 0x0b, 0xc0, 0x80, 0x79, 0xfb, 0xcd, 0x8e, 0x8c, 0xb2, 0x89, 0x68, 0x8e, 0xff, 0xbc, 0xb0,
+	0x17, 0x87, 0xba, 0x66, 0xa8, 0xe6, 0x4d, 0x6d, 0xef, 0x5e, 0x6d, 0xef, 0x9b, 0x6f, 0x0b, 0x43,
+	0xf3, 0x64, 0x7a, 0xc6, 0xa4, 0x86, 0x98, 0xe6, 0x5e, 0x96, 0x86, 0x5e, 0x1b, 0x76, 0xd7, 0x56,
+	0x47, 0x55, 0x58, 0xac, 0x43, 0x0f, 0xc0, 0x91, 0x31, 0xcd, 0x94, 0xa5, 0x01, 0xbd, 0x3d, 0x7a,
+	0x8d, 0x81, 0xc6, 0x45, 0xa4, 0x2f, 0xad, 0xc2, 0x6c, 0x8f, 0xdc, 0xe1, 0xa4, 0x42, 0x98, 0xce,
+	0x2b, 0xb9, 0x2a, 0x73, 0x17, 0x3a, 0x5c, 0x48, 0xac, 0x43, 0x8f, 0x20, 0xfd, 0xa0, 0x1a, 0x5a,
+	0xfb, 0xe8, 0x31, 0x92, 0xdb, 0x94, 0x58, 0x27, 0x18, 0xa8, 0x3f, 0xf2, 0xf6, 0x27, 0x00, 0x00,
+	0xff, 0xff, 0x44, 0x22, 0x29, 0x18, 0xa2, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -235,6 +377,8 @@ type AccountClient interface {
 	ChangeBalance(ctx context.Context, in *ChangeBalanceRequest, opts ...grpc.CallOption) (*AccountReply, error)
 	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*AccountReply, error)
 	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*AccountReply, error)
+	CreateAsset(ctx context.Context, in *CreateAssetRequest, opts ...grpc.CallOption) (*Asset, error)
+	ChangeAssetBalance(ctx context.Context, in *AssetBalance, opts ...grpc.CallOption) (*AssetBalance, error)
 }
 
 type accountClient struct {
@@ -272,12 +416,32 @@ func (c *accountClient) Create(ctx context.Context, in *CreateRequest, opts ...g
 	return out, nil
 }
 
+func (c *accountClient) CreateAsset(ctx context.Context, in *CreateAssetRequest, opts ...grpc.CallOption) (*Asset, error) {
+	out := new(Asset)
+	err := c.cc.Invoke(ctx, "/rpc.Account/CreateAsset", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) ChangeAssetBalance(ctx context.Context, in *AssetBalance, opts ...grpc.CallOption) (*AssetBalance, error) {
+	out := new(AssetBalance)
+	err := c.cc.Invoke(ctx, "/rpc.Account/ChangeAssetBalance", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServer is the server API for Account service.
 type AccountServer interface {
 	// Sends a greeting
 	ChangeBalance(context.Context, *ChangeBalanceRequest) (*AccountReply, error)
 	GetBalance(context.Context, *GetBalanceRequest) (*AccountReply, error)
 	Create(context.Context, *CreateRequest) (*AccountReply, error)
+	CreateAsset(context.Context, *CreateAssetRequest) (*Asset, error)
+	ChangeAssetBalance(context.Context, *AssetBalance) (*AssetBalance, error)
 }
 
 // UnimplementedAccountServer can be embedded to have forward compatible implementations.
@@ -292,6 +456,12 @@ func (*UnimplementedAccountServer) GetBalance(ctx context.Context, req *GetBalan
 }
 func (*UnimplementedAccountServer) Create(ctx context.Context, req *CreateRequest) (*AccountReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (*UnimplementedAccountServer) CreateAsset(ctx context.Context, req *CreateAssetRequest) (*Asset, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAsset not implemented")
+}
+func (*UnimplementedAccountServer) ChangeAssetBalance(ctx context.Context, req *AssetBalance) (*AssetBalance, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeAssetBalance not implemented")
 }
 
 func RegisterAccountServer(s *grpc.Server, srv AccountServer) {
@@ -352,6 +522,42 @@ func _Account_Create_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Account_CreateAsset_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAssetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).CreateAsset(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rpc.Account/CreateAsset",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).CreateAsset(ctx, req.(*CreateAssetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_ChangeAssetBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AssetBalance)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).ChangeAssetBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rpc.Account/ChangeAssetBalance",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).ChangeAssetBalance(ctx, req.(*AssetBalance))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Account_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "rpc.Account",
 	HandlerType: (*AccountServer)(nil),
@@ -367,6 +573,14 @@ var _Account_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _Account_Create_Handler,
+		},
+		{
+			MethodName: "CreateAsset",
+			Handler:    _Account_CreateAsset_Handler,
+		},
+		{
+			MethodName: "ChangeAssetBalance",
+			Handler:    _Account_ChangeAssetBalance_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

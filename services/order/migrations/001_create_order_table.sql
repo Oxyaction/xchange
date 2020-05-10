@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS sell_order (
   asset_id uuid NOT NULL,
   amount INTEGER NOT NULL CHECK(amount > 0),
   price INTEGER NOT NULL CHECK(price > 0),
-  seller_id INTEGER NOT NULL,
+  seller_id uuid NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS sell_order_history (
   asset_id uuid NOT NULL,
   amount INTEGER NOT NULL CHECK(amount > 0),
   price INTEGER NOT NULL CHECK(price > 0),
-  seller_id INTEGER NOT NULL,
+  seller_id uuid NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 

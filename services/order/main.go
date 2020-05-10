@@ -4,45 +4,45 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"time"
+	"net"
 
 	pb "github.com/Oxyaction/xchange/rpc"
+	"github.com/jackc/pgx/v4/pgxpool"
 
 	"google.golang.org/grpc"
 )
 
 const (
-	address = "localhost:3000"
+	port  = "3001"
+	dbURL = "postgres://postgres:xchange@localhost/order?sslmode=disable&pool_max_conns=10"
 )
 
-func getBalance(ctx context.Context, c pb.AccountClient) {
-	reply, err := c.GetBalance(ctx, &pb.GetBalanceRequest{Id: "123e4567-e89b-12d3-a456-426655440000"})
+func initDbPool() *pgxpool.Pool {
+	pool, err := pgxpool.Connect(context.Background(), dbURL)
 	if err != nil {
-		fmt.Printf("%+v", err)
-	} else {
-		fmt.Printf("Balance is %d \n", reply.GetBalance())
+		log.Fatalf("Unable to connection to database: %v", err)
 	}
-}
-
-func createAccount(ctx context.Context, c pb.AccountClient) {
-	reply, err := c.Create(ctx, &pb.CreateRequest{})
-	if err != nil {
-		fmt.Printf("%+v", err)
-	} else {
-		fmt.Printf("New account id: '%s'\n", reply.GetId())
-	}
+	return pool
 }
 
 func main() {
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	pool := initDbPool()
+	defer pool.Close()
+	fmt.Println("Connected to database")
+
+	lis, err := net.Listen("tcp", ":"+port)
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("failed to listen: %v", err)
 	}
-	defer conn.Close()
+	s := grpc.NewServer()
+	orderRepository := &orderRepository{pool}
+	pb.RegisterOrderServer(s, &OrderServer{
+		orderRepository: orderRepository,
+	})
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
+	fmt.Printf("Listening on port %s\n", port)
 
-	c := pb.NewAccountClient(conn)
-	createAccount(ctx, c)
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }
