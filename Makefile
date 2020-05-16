@@ -24,7 +24,6 @@ migrate_test/%:
 migrate_test_undo/%:
 	cd services/$(@F) && DB_NAME=$(@F)_test tern migrate --migrations ./migrations --destination -1
 
-
 local_dev:
 	docker-compose up db
 

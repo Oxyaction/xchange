@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
+
 	pb "github.com/Oxyaction/xchange/rpc"
 
 	"github.com/google/uuid"
@@ -25,7 +25,7 @@ type appError struct {
 }
 
 func (ac *AccountController) CreateAccount(w http.ResponseWriter, r *http.Request) {
-	reply, err := ac.Client.Create(context.Background(), &pb.CreateRequest{})
+	reply, err := ac.Client.Create(r.Context(), &pb.CreateRequest{})
 	if err != nil {
 		DisplayAppError(w, err, "Create account error", 500)
 		return
@@ -48,7 +48,7 @@ func (ac *AccountController) GetAccount(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	reply, err := ac.Client.GetBalance(context.Background(), &pb.GetBalanceRequest{Id: id.String()})
+	reply, err := ac.Client.GetBalance(r.Context(), &pb.GetBalanceRequest{Id: id.String()})
 
 	if err != nil {
 		DisplayRPCError(w, err)
